@@ -1,6 +1,4 @@
 #!/bin/bash
-. /opt/farm/scripts/init
-
 
 if ! grep -q /opt/sf-standby-monitor/cron/check.sh /etc/crontab; then
 	sed -i -e "/scripts\/check\/standby.sh/d" /etc/crontab
