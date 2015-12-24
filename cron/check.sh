@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 . /opt/farm/scripts/functions.custom
 
 # This script checks every 30 minutes, which (mostly external) hard drives, that
