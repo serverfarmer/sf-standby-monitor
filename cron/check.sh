@@ -7,7 +7,7 @@
 # Tomasz Klim, Apr 2014, Mar 2015
 
 
-devices=`cat /opt/sf-standby-monitor/config/devices.conf |grep -v ^# |grep -v ^$`
+devices=`cat /opt/farm/ext/standby-monitor/config/devices.conf |grep -v ^# |grep -v ^$`
 
 for device in $devices; do
 	if [ -h $device ] && [ "`hdparm -C $device 2>&1 |grep standby`" = "" ]; then
