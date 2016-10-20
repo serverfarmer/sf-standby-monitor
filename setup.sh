@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$OSTYPE" = "netbsd" ]; then
+if [ "$OSTYPE" = "freebsd" ] || [ "$OSTYPE" = "netbsd" ]; then
 	echo "skipping standby monitor setup, unsupported system"
 	exit 0
 fi
