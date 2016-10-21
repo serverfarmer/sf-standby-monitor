@@ -1,4 +1,5 @@
 #!/bin/sh
+. /opt/farm/scripts/init
 
 if [ "$OSTYPE" = "freebsd" ] || [ "$OSTYPE" = "netbsd" ]; then
 	echo "skipping standby monitor setup, unsupported system"
