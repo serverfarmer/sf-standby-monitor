@@ -1,8 +1,11 @@
 #!/bin/sh
 . /opt/farm/scripts/init
 
-if [ "$OSTYPE" = "freebsd" ] || [ "$OSTYPE" = "netbsd" ]; then
+if [ "`uname`" != "Linux" ]; then
 	echo "skipping standby monitor setup, unsupported system"
+	exit 0
+elif [ "$HWTYPE" = "container" ] || [ "$HWTYPE" = "lxc" ]; then
+	echo "skipping standby monitor setup on container"
 	exit 0
 fi
 
