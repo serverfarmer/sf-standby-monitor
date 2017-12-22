@@ -1,16 +1,16 @@
 #!/bin/bash
 . /opt/farm/scripts/functions.custom
 
-# This script checks every 30 minutes, which (mostly external) hard drives, that
-# are configured as overheating, are not in the standby state - and if such drives
-# are detedted, notifies the administrator.
-# Tomasz Klim, Apr 2014, Mar 2015
+# This script checks every 30 minutes for USB external drives, that are
+# not in the standby state - to warn the administrator about the possible
+# overheating.
+# Tomasz Klim, Apr 2014, Mar 2015, Dec 2017
 
-
-devices=`cat /opt/farm/ext/standby-monitor/config/devices.conf |grep -v ^# |grep -v ^$`
+devices=`/opt/farm/ext/standby-monitor/utils/list-physical-drives.sh |grep -vxFf /etc/local/.config/standby.exceptions |grep -v SSD`
 
 for device in $devices; do
-	if [ -h $device ] && [ "`hdparm -C $device 2>&1 |grep standby`" = "" ]; then
+	devname=`readlink -f $device`
+	if grep -qxF $devname /var/cache/cacti/usb.tmp && [ "`hdparm -C $device 2>&1 |grep standby`" = "" ]; then
 		smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@`external_domain`
 	fi
 done

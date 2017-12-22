@@ -9,6 +9,13 @@ elif [ "$HWTYPE" = "container" ] || [ "$HWTYPE" = "lxc" ]; then
 	exit 0
 fi
 
+touch /var/cache/cacti/usb.tmp
+touch /etc/local/.config/standby.exceptions
+
 if ! grep -q /opt/farm/ext/standby-monitor/cron/check.sh /etc/crontab; then
 	echo "*/30 * * * * root /opt/farm/ext/standby-monitor/cron/check.sh" >>/etc/crontab
+fi
+
+if ! grep -q /opt/farm/ext/standby-monitor/cron/update.sh /etc/crontab; then
+	echo "59 * * * * root /opt/farm/ext/standby-monitor/cron/update.sh" >>/etc/crontab
 fi
