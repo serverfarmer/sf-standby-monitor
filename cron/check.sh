@@ -6,13 +6,9 @@
 # overheating.
 # Tomasz Klim, Apr 2014, Mar 2015, Dec 2017
 
-devices=`/opt/farm/ext/standby-monitor/utils/list-physical-drives.sh |grep -vxFf /etc/local/.config/standby.exceptions |grep -v SSD`
 
-for device in $devices; do
-	devname=`readlink -f $device`
-	if grep -qxF $devname /var/cache/cacti/usb.tmp && [ "`hdparm -C $device 2>&1 |grep standby`" = "" ]; then
-		smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@`external_domain`
-	fi
+for device in `/opt/farm/ext/standby-monitor/cron/list.sh`; do
+	smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@`external_domain`
 done
 
 
