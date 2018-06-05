@@ -9,14 +9,8 @@ elif [ "$HWTYPE" = "container" ] || [ "$HWTYPE" = "lxc" ]; then
 	exit 0
 fi
 
-mkdir -p /var/cache/cacti
-
-# transitional code: rename standby.exceptions to skip-smart.devices
-if [ -f /etc/local/.config/standby.exceptions ] && [ ! -f /etc/local/.config/skip-smart.devices ]; then
-	mv /etc/local/.config/standby.exceptions /etc/local/.config/skip-smart.devices
-fi
-
-touch /etc/local/.config/skip-smart.devices
+/opt/farm/scripts/setup/extension.sh sf-cache-utils
+/opt/farm/scripts/setup/extension.sh sf-hardware-utils
 
 if ! grep -q /opt/farm/ext/standby-monitor/cron/check.sh /etc/crontab; then
 	echo "*/30 * * * * root /opt/farm/ext/standby-monitor/cron/check.sh" >>/etc/crontab
