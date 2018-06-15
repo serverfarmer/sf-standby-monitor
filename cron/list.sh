@@ -1,9 +1,9 @@
 #!/bin/sh
 
-devices=`/opt/farm/ext/hardware-utils/storage/list-physical-drives.sh |grep -v SSD |grep -vxFf /etc/local/.config/skip-smart.devices`
+devices=`/opt/farm/ext/storage-utils/list-physical-drives.sh |grep -v SSD |grep -vxFf /etc/local/.config/skip-smart.devices`
 
 file="/var/cache/cacti/usb.tmp"
-/opt/farm/ext/hardware-utils/storage/list-usb-drives.sh >$file
+/opt/farm/ext/storage-utils/list-usb-drives.sh >$file
 
 for device in $devices; do
 	devname=`readlink -f $device`

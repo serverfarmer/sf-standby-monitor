@@ -10,7 +10,7 @@ elif [ "$HWTYPE" = "container" ] || [ "$HWTYPE" = "lxc" ]; then
 fi
 
 /opt/farm/scripts/setup/extension.sh sf-cache-utils
-/opt/farm/scripts/setup/extension.sh sf-hardware-utils
+/opt/farm/scripts/setup/extension.sh sf-storage-utils
 
 if ! grep -q /opt/farm/ext/standby-monitor/cron/check.sh /etc/crontab; then
 	echo "*/30 * * * * root /opt/farm/ext/standby-monitor/cron/check.sh" >>/etc/crontab
