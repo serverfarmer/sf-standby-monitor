@@ -1,11 +1,11 @@
 #!/bin/sh
 . /opt/farm/scripts/init
 
-if [ "`uname`" != "Linux" ]; then
-	echo "skipping standby monitor setup, unsupported system"
+if [ "`uname`" != "Linux" ] || [ "$OSTYPE" = "qnap" ]; then
+	echo "skipping standby monitor configuration (unsupported system)"
 	exit 0
 elif [ "$HWTYPE" = "container" ] || [ "$HWTYPE" = "lxc" ]; then
-	echo "skipping standby monitor setup on container"
+	echo "skipping standby monitor configuration (containers do not have access to physical drives)"
 	exit 0
 fi
 
