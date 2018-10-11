@@ -2,7 +2,7 @@
 
 devices=`/opt/farm/ext/storage-utils/list-physical-drives.sh |grep -v SSD |grep -vxFf /etc/local/.config/skip-smart.devices`
 
-file="/var/cache/cacti/usb.tmp"
+file=`mktemp -u /var/cache/cacti/usb.XXXXXXXXX.tmp`
 /opt/farm/ext/storage-utils/list-usb-drives.sh >$file
 
 for device in $devices; do
@@ -11,3 +11,5 @@ for device in $devices; do
 		echo $device
 	fi
 done
+
+rm -f $file
