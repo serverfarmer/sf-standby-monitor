@@ -1,9 +1,9 @@
 #!/bin/sh
 
-devices=`/opt/farm/ext/storage-utils/list-physical-drives.sh |grep -v SSD |grep -vxFf /etc/local/.config/skip-smart.devices`
+devices=`/opt/heartbeat/scripts/facts/storage/list-physical-drives.sh |grep -v SSD |grep -vxFf /etc/heartbeat/skip-smart.sata`
 
 file=`mktemp -u /var/cache/cacti/usb.XXXXXXXXX.tmp`
-/opt/farm/ext/storage-utils/list-usb-drives.sh >$file
+/opt/heartbeat/scripts/facts/storage/list-usb-drives.sh >$file
 
 for device in $devices; do
 	devname=`readlink -f $device`
