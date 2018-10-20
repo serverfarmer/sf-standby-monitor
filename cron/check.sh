@@ -7,7 +7,7 @@
 # Tomasz Klim, Apr 2014, Mar 2015, Dec 2017
 
 
-for device in `/opt/farm/ext/standby-monitor/cron/list.sh`; do
+for device in `/opt/heartbeat/scripts/checks/not-standby.sh`; do
 	smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@`external_domain`
 done
 
