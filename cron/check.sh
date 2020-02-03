@@ -1,5 +1,4 @@
-#!/bin/bash
-. /opt/farm/scripts/functions.custom
+#!/bin/sh
 
 # This script checks every 30 minutes for USB external drives, that are
 # not in the standby state - to warn the administrator about the possible
@@ -7,8 +6,10 @@
 # Tomasz Klim, Apr 2014, Mar 2015, Dec 2017
 
 
+domain=`/opt/farm/config/get-external-domain.sh`
+
 for device in `/opt/heartbeat/scripts/checks/not-standby.sh`; do
-	smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@`external_domain`
+	smartctl -d sat -T permissive -a $device |mail -s "$device is not in standby mode" smart-alerts@$domain
 done
 
 
